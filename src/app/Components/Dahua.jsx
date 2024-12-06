@@ -9,7 +9,7 @@ import AiAnalyticsImage from '../../../public/dahua/AI-Powered Analytics.webp'
 
 export const metadata = {
   title: 'Dahua Technology | Your Company Name',
-  description: 'Discover Dahua Technology\'s innovative security solutions and services. Learn more about our mission, vision, and featured products.',
+  description: 'Discover Dahua Technologys innovative security solutions and services. Learn more about our mission, vision, and featured products.',
   keywords: 'Dahua Technology, security solutions, IoT, AI, video surveillance',
 }
 

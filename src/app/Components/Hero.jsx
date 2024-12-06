@@ -1,8 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import SEO from '../Components/SEO';
-import Button from '../Components/Button/button';
 import styled from 'styled-components';
 import heroImage from '../../../public/hero.webp';
 import whiteBg from '../../../public/white.webp';

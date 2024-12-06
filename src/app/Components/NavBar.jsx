@@ -7,6 +7,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import logo from '../../../public/logo/logo.webp'; // Adjust the path for your project
 import gsap from 'gsap';
+import Script from 'next/script';
 
 
 // Extract menu items outside component to prevent recreating on each render
@@ -191,6 +192,7 @@ const NavBar = () => {
           name="description"
           content="Navigate through our website to explore various sections and services we offer including audio-video solutions, services, client projects and more."
         />
+    
         <meta name="keywords" content="navigation, menu, services, audio video solutions, smart classroom, meeting room solutions" />
 
         {/* OpenGraph tags */}
@@ -198,6 +200,106 @@ const NavBar = () => {
         <meta property="og:title" content="Navigation | Your Company Name" />
         <meta property="og:description" content="Explore our comprehensive range of solutions and services" />
       </Head>
+      <Script
+        id="schema-org"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebSite",
+                "@id": "https://www.lovosistech.com/#website",
+                "url": "https://www.lovosistech.com",
+                "name": "Lovosis Technology",
+                "description": "Innovative Solutions for Your Business",
+                "publisher": {
+                  "@id": "https://www.lovosistech.com/#organization"
+                }
+              },
+              {
+                "@type": "Organization",
+                "@id": "https://www.lovosistech.com/#organization",
+                "name": "Lovosis Technology",
+                "url": "https://www.lovosistech.com",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.lovosistech.com/logo.png"
+                },
+                "sameAs": [
+                  "https://www.linkedin.com/company/lovosistech",
+                  "https://twitter.com/lovosistech"
+                ],
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "4.9",
+                  "reviewCount": "500",
+                  "bestRating": "5"
+                }
+              },
+              {
+                "@type": "Service",
+                "serviceType": "Digital Transformation",
+                "provider": {
+                  "@id": "https://www.lovosistech.com/#organization"
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "Global"
+                },
+                "hasOfferCatalog": {
+                  "@type": "OfferCatalog",
+                  "name": "Digital Services",
+                  "itemListElement": [
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Business Analytics",
+                        "description": "Advanced analytics solutions for business optimization"
+                      }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Process Automation",
+                        "description": "Seamless automation solutions for increased efficiency"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://www.lovosistech.com/#webpage",
+                "url": "https://www.lovosistech.com",
+                "name": "Lovosis Technology - Innovative Solutions for Your Business",
+                "description": "Discover Lovosis Technology's innovative solutions to take your business to the next level.",
+                "isPartOf": {
+                  "@id": "https://www.lovosistech.com/#website"
+                },
+                "about": {
+                  "@id": "https://www.lovosistech.com/#organization"
+                },
+                "breadcrumb": {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "item": {
+                        "@id": "https://www.lovosistech.com/",
+                        "name": "Home"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          })
+        }}
+      />
       <nav ref={navRef} className="fixed w-full z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">

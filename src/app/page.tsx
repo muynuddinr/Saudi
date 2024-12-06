@@ -8,6 +8,13 @@ import Features from '../app/Components/Features';
 import Blog from '../app/Components/Blog';
 import Logo from '../app/Components/Logo';
 import Newsletter from '../app/Components/Newsletter';
+import type { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: "Digitallink Saudi",
+  description: "Digitallink Saudi",
+};
 
 
 const HomePage = () => {
