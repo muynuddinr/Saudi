@@ -26,7 +26,7 @@ export default function Example() {
   return (
     <>
       <Head>
-        <title>Lovosis</title>
+        <title>digitallink Saudi</title>
         <meta name="description" content="Subscribe to our weekly newsletter for cutting-edge insights, transformative strategies, and innovation updates. Join our community of forward-thinking professionals." />
         <meta name="keywords" content="newsletter, digital excellence, weekly updates, innovation insights, business transformation" />
         

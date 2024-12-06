@@ -495,27 +495,27 @@ const SolutionsSection = styled.section`
 `;
 
 const metadata = {
-  title: 'About Us | Lovosis Technology',
-  description: "Learn about Lovosis Technology's journey, mission, and vision for the future.",
-  keywords: 'Lovosis Technology, about us, mission, vision, team',
+  title: 'About Us | Digitallink Technology',
+  description: "Learn about Digitallink Technology's journey, mission, and vision for the future.",
+  keywords: 'Digitallink Technology, about us, mission, vision, team',
   jsonLd: {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://www.lovosistech.com/#organization",
-        "name": "Lovosis Technology",
-        "url": "https://www.lovosistech.com",
+        "@id": "https://digitallink-sa.com/#organization",
+        "name": "Digitallink Technology",
+        "url": "https://www.Digitallinktech.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://www.lovosistech.com/logo.png",
+          "url": "https://digitallink-sa.com/logo.png",
           "width": 112,
           "height": 112
         },
         "sameAs": [
-          "https://www.facebook.com/lovosistech",
-          "https://www.linkedin.com/company/lovosistech",
-          "https://twitter.com/lovosistech"
+          "https://www.facebook.com/Digitallinktech",
+          "https://www.linkedin.com/company/Digitallinktech",
+          "https://twitter.com/Digitallinktech"
         ],
         "contactPoint": {
           "@type": "ContactPoint",
@@ -527,12 +527,12 @@ const metadata = {
       },
       {
         "@type": "AboutPage",
-        "@id": "https://www.lovosistech.com/about/#webpage",
-        "url": "https://www.lovosistech.com/about/",
-        "name": "About Us | Lovosis Technology",
-        "isPartOf": { "@id": "https://www.lovosistech.com/#website" },
-        "about": { "@id": "https://www.lovosistech.com/#organization" },
-        "description": "Learn about Lovosis Technology's journey, mission, and vision for the future.",
+        "@id": "https://digitallink-sa.com/about/#webpage",
+        "url": "https://digitallink-sa.com/about/",
+        "name": "About Us | Digitallink Technology",
+        "isPartOf": { "@id": "https://digitallink-sa.com/#website" },
+        "about": { "@id": "https://digitallink-sa.com/#organization" },
+        "description": "Learn about Digitallink Technology's journey, mission, and vision for the future.",
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [
@@ -540,7 +540,7 @@ const metadata = {
               "@type": "ListItem",
               "position": 1,
               "item": {
-                "@id": "https://www.lovosistech.com/",
+                "@id": "https://digitallink-sa.com/",
                 "name": "Home"
               }
             },
@@ -548,7 +548,7 @@ const metadata = {
               "@type": "ListItem",
               "position": 2,
               "item": {
-                "@id": "https://www.lovosistech.com/about/",
+                "@id": "https://digitallink-sa.com/about/",
                 "name": "About Us"
               }
             }

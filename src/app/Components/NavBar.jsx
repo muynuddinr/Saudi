@@ -209,26 +209,26 @@ const NavBar = () => {
             "@graph": [
               {
                 "@type": "WebSite",
-                "@id": "https://www.lovosistech.com/#website",
-                "url": "https://www.lovosistech.com",
-                "name": "Lovosis Technology",
+                "@id": "https://digitallink-sa.com/#website",
+                "url": "https://www.digitallink Sauditech.com",
+                "name": "digitallink Saudi Technology",
                 "description": "Innovative Solutions for Your Business",
                 "publisher": {
-                  "@id": "https://www.lovosistech.com/#organization"
+                  "@id": "https://digitallink-sa.com/#organization"
                 }
               },
               {
                 "@type": "Organization",
-                "@id": "https://www.lovosistech.com/#organization",
-                "name": "Lovosis Technology",
-                "url": "https://www.lovosistech.com",
+                "@id": "https://digitallink-sa.com/#organization",
+                "name": "digitallink Saudi Technology",
+                "url": "https://www.digitallink Sauditech.com",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://www.lovosistech.com/logo.png"
+                  "url": "https://digitallink-sa.com/logo.png"
                 },
                 "sameAs": [
-                  "https://www.linkedin.com/company/lovosistech",
-                  "https://twitter.com/lovosistech"
+                  "https://www.linkedin.com/company/digitallink Sauditech",
+                  "https://twitter.com/digitallink Sauditech"
                 ],
                 "aggregateRating": {
                   "@type": "AggregateRating",
@@ -241,7 +241,7 @@ const NavBar = () => {
                 "@type": "Service",
                 "serviceType": "Digital Transformation",
                 "provider": {
-                  "@id": "https://www.lovosistech.com/#organization"
+                  "@id": "https://digitallink-sa.com/#organization"
                 },
                 "areaServed": {
                   "@type": "Country",
@@ -272,15 +272,15 @@ const NavBar = () => {
               },
               {
                 "@type": "WebPage",
-                "@id": "https://www.lovosistech.com/#webpage",
-                "url": "https://www.lovosistech.com",
-                "name": "Lovosis Technology - Innovative Solutions for Your Business",
-                "description": "Discover Lovosis Technology's innovative solutions to take your business to the next level.",
+                "@id": "https://digitallink-sa.com/#webpage",
+                "url": "https://www.digitallink Sauditech.com",
+                "name": "digitallink Saudi Technology - Innovative Solutions for Your Business",
+                "description": "Discover digitallink Saudi Technology's innovative solutions to take your business to the next level.",
                 "isPartOf": {
-                  "@id": "https://www.lovosistech.com/#website"
+                  "@id": "https://digitallink-sa.com/#website"
                 },
                 "about": {
-                  "@id": "https://www.lovosistech.com/#organization"
+                  "@id": "https://digitallink-sa.com/#organization"
                 },
                 "breadcrumb": {
                   "@type": "BreadcrumbList",
@@ -289,7 +289,7 @@ const NavBar = () => {
                       "@type": "ListItem",
                       "position": 1,
                       "item": {
-                        "@id": "https://www.lovosistech.com/",
+                        "@id": "https://digitallink-sa.com/",
                         "name": "Home"
                       }
                     }
