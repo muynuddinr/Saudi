@@ -75,8 +75,8 @@ const MenuItem = memo(({ item, activePage, handleNavigation }) => {
         onClick={() => handleNavigation(item.href)}
         className={`px-5 py-2.5 rounded-full flex items-center text-sm font-medium transition-all duration-200 ${
           activePage === item.href
-            ? 'bg-blue-100 text-blue-900 font-bold'
-            : 'text-blue-700 hover:text-blue-900 hover:bg-blue-100'
+            ? 'bg-white text-blue-900 font-bold'
+            : 'text-blue-700 hover:text-blue-900 hover:bg-white'
         }`}
       >
         {item.title}
@@ -135,7 +135,7 @@ const NavBar = () => {
       setScrolled(scrolled);
       
       gsap.to(navRef.current, {
-        backgroundColor: 'rgb(239, 246, 255)',
+        backgroundColor: 'rgb(255, 255, 255)',
         boxShadow: scrolled ? '0 4px 6px -1px rgb(0 0 0 / 0.1)' : 'none',
         duration: 0.3,
         ease: 'power2.out'
@@ -252,7 +252,7 @@ const NavBar = () => {
         {/* Mobile Menu */}
         <div 
           ref={mobileMenuRef} 
-          className="lg:hidden bg-blue-50 border-t border-blue-100"
+          className="lg:hidden bg-white border-t border-blue-100"
           style={{ display: 'none' }}
         >
           <div className="max-w-7xl mx-auto py-3 px-4 sm:px-6">
@@ -263,8 +263,8 @@ const NavBar = () => {
                   onClick={() => handleNavigation(item.href)}
                   className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm ${
                     activePage === item.href
-                      ? 'bg-blue-100 text-blue-900 font-bold'
-                      : 'text-blue-700 hover:bg-blue-100 hover:text-blue-900'
+                      ? 'bg-white text-blue-900 font-bold'
+                      : 'text-blue-700 hover:bg-white hover:text-blue-900'
                   }`}
                 >
                   <span>{item.title}</span>

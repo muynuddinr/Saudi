@@ -1,7 +1,6 @@
 'use client';
 import styled from 'styled-components';
 import { FaHeadset, FaPencilRuler, FaCode, FaTools, FaCog } from 'react-icons/fa';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
 import React, { memo,} from 'react';
 import { motion } from 'framer-motion';
 import audioVideoMain from '../../../public/audio/audiovideomain.webp';
