@@ -7,16 +7,16 @@ import Link from 'next/link';
 // Static Data
 const footerLinks = {
   company: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'About Us', href: '/About' },
+    { name: 'Contact', href: '/Contact' },
   ],
   services: [
-    { name: 'Web Development', href: '/service' },
-    { name: 'Mobile Apps', href: '/service' },
-    { name: 'Cloud Solutions', href: '/service' },
+    { name: 'Web Development', href: '/Service' },
+    { name: 'Mobile Apps', href: '/Service' },
+    { name: 'Cloud Solutions', href: '/Service' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Privacy Policy', href: '/Privacy' },
   ],
 };
 

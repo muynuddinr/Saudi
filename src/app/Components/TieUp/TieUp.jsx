@@ -75,7 +75,7 @@ const TieUp = () => {
         image: hikvisionImage,
         stats: '100+ Countries Served',
         color: 'bg-blue-50',
-        link: '/hikvision',
+        link: '/Hikvision',
       },
       {
         id: 3,

@@ -154,19 +154,22 @@ const Blog = () => {
       id: 1,
       title: 'AI in Surveillance',
       content: 'Utilizes computer software programs that analyze the audio and images from video surveillance cameras in order to recognize humans, vehicles, objects, attributes, and events',
-      image: AIInSurveillance
+      image: AIInSurveillance,
+      url: 'https://digitechtalk.com/?s=ai'
     },
     {
       id: 2,
       title: 'Artificial intelligence of things (AIoT)',
       content: 'Is the combination of artificial intelligence (AI) technologies with the Internet of things (IoT) infrastructure to achieve more efficient IoT operations, improve human-machine interactions and enhance data management and analytics.',
-      image: AIoT
+      image: AIoT,
+      url: 'https://digitechtalk.com/?s=cameras'
     },
     {
       id: 3,
       title: 'IT Ecosystem Infrastructure',
       content: 'Deals with the IT hardware (compute, storage, net), operating systems, basic services and platforms (virtualisation) for cloud services. The overall infrastructure approach is determined by quality (e.g. availability), security and economic efficiency',
-      image: ITEcosystem
+      image: ITEcosystem,
+      url: 'https://digitechtalk.com/?s=IT'
     }
   ]);
 
@@ -215,7 +218,7 @@ const Blog = () => {
   }, []);
 
   const handleReadMore = (post) => {
-    router.push(`/blog/${post.id}`);
+    router.push(post.url);
   };
 
   return (

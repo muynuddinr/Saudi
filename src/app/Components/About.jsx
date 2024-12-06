@@ -3,7 +3,6 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 import NavBar from '../Components/NavBar';
@@ -56,15 +55,14 @@ const CountingNumber = ({ end, duration = 2000 }) => {
 
 const HeroSection = styled.div`
   position: relative;
-  min-height: 120vh;
-  background: linear-gradient(165deg, 
-    rgba(37, 99, 235, 0.95) 0%, 
-    rgba(37, 99, 235, 0.4) 25%, 
-    rgba(0, 0, 0, 0) 50%),
-    url(${whiteImg.src});
+  min-height: 100vh;
+  background: linear-gradient(165deg, rgba(37, 99, 235, 0.95) 0%, rgba(37, 99, 235, 0.4) 25%, rgba(0, 0, 0, 0) 50%), url(${whiteImg.src});
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  padding: 0;
   overflow: hidden;
 `;
 
@@ -310,13 +308,6 @@ const About = () => {
   return (
     <>
       <HeroSection>
-        <Image
-          src={whiteImg.src}
-          alt="Background"
-          fill
-          style={{ objectFit: 'cover' }}
-          priority
-        />
         <HeroContent>
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-8">
@@ -328,11 +319,11 @@ const About = () => {
               >
                 {/* Badge */}
                 <motion.div 
-                  className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
+                  className="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-sm"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <span className="text-blue-400 mr-2">★</span>
-                  <span className="text-white/90 text-sm font-medium">Trusted by Fortune 500 Companies</span>
+                  <span className="text-blue-600 mr-2">★</span>
+                  <span className="text-blue-600 text-sm font-medium">Trusted by Fortune 500 Companies</span>
                 </motion.div>
 
                 <h1>
@@ -349,7 +340,7 @@ const About = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8, duration: 0.8 }}
                 >
-                  <ServiceButton href="/service">Our Services</ServiceButton>
+                  <ServiceButton href="/Service">Our Services</ServiceButton>
                 </ButtonContainer>
               </motion.div>
             </div>
@@ -470,8 +461,6 @@ const About = () => {
                   transition={{ delay: 0.8, duration: 0.8 }}
                   className="mt-8 flex flex-col sm:flex-row gap-4"
                 >
-                  <GradientButton>Learn More</GradientButton>
-                  <OutlineButton>Our Services</OutlineButton>
                 </motion.div>
               </motion.div>
 

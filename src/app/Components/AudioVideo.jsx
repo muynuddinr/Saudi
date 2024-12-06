@@ -608,7 +608,7 @@ const AudioVideo = () => {
             whileTap={{ scale: 0.98 }}
             className="w-full flex justify-center"
           >
-            <CtaButton href="/contact">
+            <CtaButton href="/Contact">
               Get Started
               <motion.span
                 className="ml-2 inline-block"

@@ -322,7 +322,7 @@ const Service = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => router.push('/contact')}
+                    onClick={() => router.push('/Contact')}
                     className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-semibold shadow-lg shadow-blue-500/25 flex items-center justify-center group cursor-pointer"
                   >
                     Get Started
