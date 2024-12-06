@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from 'emailjs-com';

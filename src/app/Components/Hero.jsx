@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import SEO from '../Components/SEO';
 import Button from '../Components/Button/button';
@@ -8,6 +8,11 @@ import heroImage from '../../../public/hero.webp';
 import whiteBg from '../../../public/white.webp';
 import Image from 'next/image';
 import Script from 'next/script';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Custom Hook: Count Animation
 const useCountAnimation = (end, duration = 2000) => {
@@ -53,6 +58,74 @@ const HeroSection = styled.section`
 `;
 
 const Hero = () => {
+  // Add ref for animations
+  const heroRef = useRef(null);
+  const headingRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const statsRef = useRef(null);
+  const imageRef = useRef(null);
+
+  // Initialize animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Heading animation without SplitText
+      gsap.from(headingRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "back.out(1.7)",
+      });
+
+      // Description paragraphs animation
+      gsap.from(descriptionRef.current.children, {
+        opacity: 0,
+        y: 30,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+
+      // Image animation
+      gsap.from(imageRef.current, {
+        opacity: 0,
+        x: 100,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top center+=100",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // Stats animation
+      gsap.from(statsRef.current.children, {
+        opacity: 0,
+        y: 50,
+        scale: 0.8,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: statsRef.current,
+          start: "top center+=200",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // Add floating animation to image
+      gsap.to(imageRef.current, {
+        y: 20,
+        duration: 2,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   // Move animation variants outside component to prevent recreation on each render
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -279,44 +352,22 @@ const Hero = () => {
         }}
       />
       
-      <HeroSection aria-label="Hero Section">
+      <HeroSection ref={heroRef} aria-label="Hero Section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-32 pb-16 relative">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
             {/* Left Content */}
-            <motion.article
-              variants={container}
-              initial="hidden"
-              animate="visible"
-              className="flex-1 text-center lg:text-left space-y-8 sm:space-y-8 pt-8 sm:pt-0"
-            >
-
-              <motion.h1
-                variants={fadeUp}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6"
-              >
-                <motion.span
-                  variants={shine}
-                  initial="initial"
-                  animate="animate"
-                  className="bg-gradient-to-r from-sky-800 via-blue-600 to-sky-800 bg-[length:200%_auto] bg-clip-text text-transparent"
-                >
+            <article className="flex-1 text-center lg:text-left space-y-8 sm:space-y-8 pt-8 sm:pt-0">
+              <h1 ref={headingRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6">
+                <span className="bg-gradient-to-r from-sky-800 via-blue-600 to-sky-800 bg-[length:200%_auto] bg-clip-text text-transparent">
                   Transform Your
-                </motion.span>
-                <br />
-                <span className="text-gray-900 relative">
-                  Digital Future
-                  <motion.span
-                    aria-hidden="true"
-                    className="absolute -bottom-2 left-0 w-full h-2 bg-sky-100 -z-10"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ delay: 1, duration: 0.8 }}
-                  />
                 </span>
-              </motion.h1>
+                <br />
+                <span className="text-gray-900">
+                  Digital Future
+                </span>
+              </h1>
 
-              {/* Enhanced Description with semantic markup */}
-              <div className="space-y-4">
+              <div ref={descriptionRef} className="space-y-4">
                 <motion.p
                   variants={fadeUp}
                   className="text-base sm:text-lg md:text-xl text-sky-900 max-w-xl mx-auto lg:mx-0"
@@ -338,12 +389,10 @@ const Hero = () => {
                   From advanced analytics to seamless automation, our comprehensive suite of services helps businesses optimize operations, increase efficiency, and achieve sustainable success in today's competitive landscape.
                 </motion.p>
               </div>
-
-              {/* Call to Action */}
-            </motion.article>
+            </article>
 
             {/* Right Image Section */}
-            <motion.div variants={slideIn} className="flex-1 lg:block mt-12 lg:mt-0">
+            <div ref={imageRef} className="flex-1 lg:block mt-12 lg:mt-0">
               <Image
                 src={heroImage}
                 alt="Transform Your Business"
@@ -352,20 +401,15 @@ const Hero = () => {
                 width={800}
                 height={600}
               />
-            </motion.div>
+            </div>
           </div>
           
           {/* Stats Section */}
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
-          >
+          <div ref={statsRef} className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {stats.map((stat, index) => (
               <StatItem key={index} stat={stat} index={index} />
             ))}
-          </motion.div>
+          </div>
         </div>
       </HeroSection>
     </>

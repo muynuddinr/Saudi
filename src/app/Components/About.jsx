@@ -1,15 +1,15 @@
 'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import NavBar from '@/components/NavBar';
-import { GradientButton, OutlineButton } from '@/components/Button/Button1';
-import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import whiteImg from '@/assets/img/white.webp';
-import heroImg from '@/assets/img/hero.webp';
+import styled from 'styled-components';
+import NavBar from '../Components/NavBar';
+import { GradientButton, OutlineButton } from '../Components/Button/Button1';
+import whiteImg from '../../../public/white.webp';
+import heroImg from '../../../public/hero.webp';
 
 const CountingNumber = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -61,7 +61,7 @@ const HeroSection = styled.div`
     rgba(37, 99, 235, 0.95) 0%, 
     rgba(37, 99, 235, 0.4) 25%, 
     rgba(0, 0, 0, 0) 50%),
-    url(${whiteImg});
+    url(${whiteImg.src});
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -309,91 +309,14 @@ const About = () => {
 
   return (
     <>
-      <head>
-        <title>About Us | Lovosis Technology</title>
-        <meta 
-          name="description" 
-          content="Learn about Lovosis Technology's journey, mission, and vision for the future."
-        />
-        <meta 
-          name="keywords" 
-          content="Lovosis Technology, about us, mission, vision, team"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "Organization",
-                  "@id": "https://www.lovosistech.com/#organization",
-                  "name": "Lovosis Technology",
-                  "url": "https://www.lovosistech.com",
-                  "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://www.lovosistech.com/logo.png",
-                    "width": 112,
-                    "height": 112
-                  },
-                  "sameAs": [
-                    "https://www.facebook.com/lovosistech",
-                    "https://www.linkedin.com/company/lovosistech",
-                    "https://twitter.com/lovosistech"
-                  ],
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "telephone": "+971-XXX-XXXX",
-                    "contactType": "customer service",
-                    "areaServed": "AE",
-                    "availableLanguage": ["en", "ar"]
-                  }
-                },
-                {
-                  "@type": "AboutPage",
-                  "@id": "https://www.lovosistech.com/about/#webpage",
-                  "url": "https://www.lovosistech.com/about/",
-                  "name": "About Us | Lovosis Technology",
-                  "isPartOf": { "@id": "https://www.lovosistech.com/#website" },
-                  "about": { "@id": "https://www.lovosistech.com/#organization" },
-                  "description": "Learn about Lovosis Technology's journey, mission, and vision for the future.",
-                  "breadcrumb": {
-                    "@type": "BreadcrumbList",
-                    "itemListElement": [
-                      {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "item": {
-                          "@id": "https://www.lovosistech.com/",
-                          "name": "Home"
-                        }
-                      },
-                      {
-                        "@type": "ListItem",
-                        "position": 2,
-                        "item": {
-                          "@id": "https://www.lovosistech.com/about/",
-                          "name": "About Us"
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            })
-          }}
-        />
-      </head>
-
       <HeroSection>
         <Image
-          src={whiteImg}
+          src={whiteImg.src}
           alt="Background"
           fill
           style={{ objectFit: 'cover' }}
           priority
         />
-        
         <HeroContent>
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-8">
@@ -567,12 +490,14 @@ const About = () => {
                 >
                   {/* Responsive image container */}
                   <div className="relative aspect-w-16 aspect-h-12 md:aspect-h-9">
-                    <Image 
-                      src={heroImg}
+                    <motion.img 
+                      src={heroImg.src}
                       alt="Growth Chart 2023"
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      priority={false}
+                      className="w-full h-full object-cover"
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                      loading="lazy"
                     />
                     
                     {/* Animated overlay */}

@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true, // Enable styled-components
   },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 };
 
 export default nextConfig;

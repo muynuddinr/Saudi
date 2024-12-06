@@ -1,20 +1,23 @@
-import { Link } from 'react-router-dom';
+'use client';
 import styled from 'styled-components';
 import { FaHeadset, FaPencilRuler, FaCode, FaTools, FaCog } from 'react-icons/fa';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo,} from 'react';
 import { motion } from 'framer-motion';
-import audioVideoMain from '../assets/img/audio/audiovideomain.webp';
-import audioRight from '../assets/img/audio/audioright.webp';
-import meetingRoom from '../assets/img/audio/Meeting Room Solutions.webp';
-import smartClassroom from '../assets/img/audio/Smart Classroom Solutions.webp';
-import auditorium from '../assets/img/audio/Auditorium Solutions.webp';
-import bgm from '../assets/img/audio/BGM Solutions.webp';
-import paVa from '../assets/img/audio/PA and VA Systems.webp';
-import homeCinema from '../assets/img/audio/Home Cinema.webp';
-import commandControl from '../assets/img/audio/Command & Control Center Solutions.webp';
-import ledVideoWall from '../assets/img/audio/LED & Video Wall Solutions.webp';
-import crisisManagement from '../assets/img/audio/Crisis Management Solutions.webp';
+import audioVideoMain from '../../../public/audio/audiovideomain.webp';
+import audioRight from '../../../public/audio/audioright.webp';
+import meetingRoom from '../../../public/audio/Meeting Room Solutions.webp';
+import smartClassroom from '../../../public/audio/Smart Classroom Solutions.webp';
+import auditorium from '../../../public/audio/Auditorium Solutions.webp';
+import bgm from '../../../public/audio/BGM Solutions.webp';
+import paVa from '../../../public/audio/PA and VA Systems.webp';
+import homeCinema from '../../../public/audio/Home Cinema.webp';
+import commandControl from '../../../public/audio/Command & Control Center Solutions.webp';
+import ledVideoWall from '../../../public/audio/LED & Video Wall Solutions.webp';
+import crisisManagement from '../../../public/audio/Crisis Management Solutions.webp';
+import Image from 'next/image';
+import Link from 'next/link';
+import Script from 'next/script';
 
 const HeroSection = styled.div`
   position: relative;
@@ -23,7 +26,7 @@ const HeroSection = styled.div`
     rgba(37, 99, 235, 0.95) 0%, 
     rgba(37, 99, 235, 0.4) 25%, 
     rgba(0, 0, 0, 0) 50%),
-    url(${audioVideoMain});
+    url(${audioVideoMain.src});
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -40,7 +43,7 @@ const HeroSection = styled.div`
       rgba(37, 99, 235, 0.98) 0%, 
       rgba(37, 99, 235, 0.7) 50%, 
       rgba(37, 99, 235, 0.4) 100%),
-      url(${audioVideoMain});
+      url(${audioVideoMain.src});
   }
 `;
 
@@ -243,15 +246,6 @@ const TextContent = styled.div`
       text-align: center;
     }
   }
-`;
-
-const Image = styled.img.attrs({
-  loading: 'lazy',
-})`
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 `;
 
 const ServicesSection = styled.section`
@@ -501,19 +495,89 @@ const SolutionsSection = styled.section`
   }
 `;
 
+const metadata = {
+  title: 'About Us | Lovosis Technology',
+  description: "Learn about Lovosis Technology's journey, mission, and vision for the future.",
+  keywords: 'Lovosis Technology, about us, mission, vision, team',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.lovosistech.com/#organization",
+        "name": "Lovosis Technology",
+        "url": "https://www.lovosistech.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.lovosistech.com/logo.png",
+          "width": 112,
+          "height": 112
+        },
+        "sameAs": [
+          "https://www.facebook.com/lovosistech",
+          "https://www.linkedin.com/company/lovosistech",
+          "https://twitter.com/lovosistech"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+971-XXX-XXXX",
+          "contactType": "customer service",
+          "areaServed": "AE",
+          "availableLanguage": ["en", "ar"]
+        }
+      },
+      {
+        "@type": "AboutPage",
+        "@id": "https://www.lovosistech.com/about/#webpage",
+        "url": "https://www.lovosistech.com/about/",
+        "name": "About Us | Lovosis Technology",
+        "isPartOf": { "@id": "https://www.lovosistech.com/#website" },
+        "about": { "@id": "https://www.lovosistech.com/#organization" },
+        "description": "Learn about Lovosis Technology's journey, mission, and vision for the future.",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@id": "https://www.lovosistech.com/",
+                "name": "Home"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "https://www.lovosistech.com/about/",
+                "name": "About Us"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+};
+
+const StyledImage = styled(Image)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+`;
+
 const AudioVideo = () => {
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>Audio Visual Solutions in Dubai | Professional AV Systems & Integration</title>
-        <meta name="description" content="Transform your space with state-of-the-art audio visual solutions in Dubai. Professional AV consulting, design, installation & maintenance services for businesses." />
-        <meta name="keywords" content="audio visual solutions dubai, AV systems, AV integration, audio video solutions, meeting room solutions, smart classroom, auditorium solutions" />
-        <link rel="canonical" href="https://yourwebsite.com/audio-video" />
-        <meta property="og:title" content="Audio Visual Solutions in Dubai | Professional AV Systems" />
-        <meta property="og:description" content="Transform your space with state-of-the-art audio visual solutions in Dubai. Professional AV consulting, design, installation & maintenance services." />
-        <meta property="og:url" content="https://yourwebsite.com/audio-video" />
-        <meta property="og:type" content="website" />
-      </Helmet>
+    <>
+      <Script
+        id="json-ld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(metadata.jsonLd) }}
+      />
 
       <HeroSection>
         <HeroContent
@@ -545,7 +609,7 @@ const AudioVideo = () => {
             whileTap={{ scale: 0.98 }}
             className="w-full flex justify-center"
           >
-            <CtaButton to="/contact">
+            <CtaButton href="/contact">
               Get Started
               <motion.span
                 className="ml-2 inline-block"
@@ -567,10 +631,17 @@ const AudioVideo = () => {
               <p>In today's fast-paced digital age, audio-visual solutions have become an essential part of business operations. From engaging presentations in boardrooms to immersive audio experiences at concerts and events, AV technology has revolutionized the way we communicate and connect with our environment.</p>
               <p>AV solutions, or audio-visual systems, combine audio and visual components to create a seamless multimedia experience. These systems are utilized across various sectors, including business, education, entertainment, and communication. As a trusted audio-visual equipment supplier in Dubai, GS-IT provides cutting-edge AV solutions that foster dynamic, real-time interactions. Through advanced AV technology, we help create immersive experiences that engage, inform, and inspire audiences.</p>
             </TextContent>
-            <Image
-              src={audioRight}
-              alt="Professional Audio Visual Setup in Dubai Meeting Room"
-            />
+            <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+              <Image
+                src={audioRight}
+                alt="Professional Audio Visual Setup in Dubai Meeting Room"
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                className="rounded-lg shadow-2xl"
+                fill={true}
+              />
+            </div>
           </Grid>
         </ContentSection>
 
@@ -614,10 +685,16 @@ const AudioVideo = () => {
           <SolutionsGrid>
             <SolutionCard>
               <CardImage>
-                <img
-                  src={meetingRoom}
-                  alt="Meeting Room Solutions"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <Image
+                    src={meetingRoom}
+                    alt="Meeting Room Solutions"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="rounded-lg shadow-lg"
+                    fill={true}
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>Meeting Room Solutions</h3>
@@ -627,10 +704,16 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={smartClassroom}
-                  alt="Smart Classroom Solutions"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <Image
+                    src={smartClassroom}
+                    alt="Smart Classroom Solutions"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="rounded-lg shadow-lg"
+                    fill={true}
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>Smart Classroom Solutions</h3>
@@ -640,10 +723,16 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={auditorium}
-                  alt="Auditorium Solutions"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <Image
+                    src={auditorium}
+                    alt="Auditorium Solutions"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="rounded-lg shadow-lg"
+                    fill={true}
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>Auditorium Solutions</h3>
@@ -653,24 +742,35 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={bgm}
-                  alt="BGM Solutions"
-                />
-              
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <Image
+                    src={bgm}
+                    alt="BGM Solutions"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="rounded-lg shadow-lg"
+                    fill={true}
+                  />
+                </div>
+              </CardImage>
               <CardContent>
                 <h3>BGM Solutions</h3>
                 <p>Create the perfect ambiance in any space with strategically placed background music systems, featuring high-quality speakers and advanced music players designed to set the ideal mood.</p>
               </CardContent>
-              </CardImage>
             </SolutionCard>
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={paVa}
-                  alt="PA and VA Systems"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <Image
+                    src={paVa}
+                    alt="PA and VA Systems"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="rounded-lg shadow-lg"
+                    fill={true}
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>PA and VA Systems</h3>
@@ -680,10 +780,15 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={homeCinema}
-                  alt="Home Cinema"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <StyledImage
+                    src={homeCinema.src}
+                    alt="Home Cinema"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>Home Cinema</h3>
@@ -693,10 +798,15 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={commandControl}
-                  alt="Command & Control Center Solutions"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <StyledImage
+                    src={commandControl.src}
+                    alt="Command & Control Center Solutions"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>Command & Control Center Solutions</h3>
@@ -706,10 +816,15 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={ledVideoWall}
-                  alt="LED & Video Wall Solutions"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <StyledImage
+                    src={ledVideoWall.src}
+                    alt="LED & Video Wall Solutions"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>LED & Video Wall Solutions</h3>
@@ -719,10 +834,16 @@ const AudioVideo = () => {
 
             <SolutionCard>
               <CardImage>
-                <img
-                  src={crisisManagement}
-                  alt="Crisis Management Solutions"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <Image
+                    src={crisisManagement}
+                    alt="Crisis Management Solutions"
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="rounded-lg shadow-lg"
+                    fill
+                  />
+                </div>
               </CardImage>
               <CardContent>
                 <h3>Crisis Management Solutions</h3>
@@ -786,7 +907,7 @@ const AudioVideo = () => {
           </ProcessGrid>
         </ProcessSection>
       </main>
-    </HelmetProvider>
+    </>
   );
 };
 

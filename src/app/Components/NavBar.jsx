@@ -6,51 +6,103 @@ import { useRouter, usePathname } from 'next/navigation';
 import Head from 'next/head';
 import Image from 'next/image';
 import logo from '../../../public/logo/logo.webp'; // Adjust the path for your project
+import gsap from 'gsap';
+
 
 // Extract menu items outside component to prevent recreating on each render
 const MENU_ITEMS = [
   { title: 'Home', href: '/' },
-  { title: 'Audio & Video', href: '/audiovideo' },
-  { title: 'Service', href: '/service' },
-  { title: 'Clients', href: '/client' },
-  { title: 'About', href: '/about' },
-  { title: 'Contact', href: '/contact' },
+  { title: 'Audio & Video', href: '/AudioVideo' },
+  { title: 'Service', href: '/Service' },
+  { title: 'Clients', href: '/Clients' },
+  { title: 'About', href: '/About' },
+  { title: 'Contact', href: '/Contact' },
 ];
 
 // Extract reusable components
-const MenuItem = memo(({ item, activePage, handleNavigation }) => (
-  <div key={item.title} className="relative group">
-    <Link
-      href={item.href}
-      onClick={() => handleNavigation(item.href)}
-      className={`px-5 py-2.5 rounded-full flex items-center text-sm font-medium transition-all duration-200 ${
-        activePage === item.href
-          ? 'bg-blue-100 text-blue-900 font-bold'
-          : 'text-blue-700 hover:text-blue-900 hover:bg-blue-100'
-      }`}
+const MenuItem = memo(({ item, activePage, handleNavigation }) => {
+  const submenuRef = React.useRef(null);
+  const linkRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (item.submenu) {
+      gsap.set(submenuRef.current, { autoAlpha: 0, y: 20 });
+    }
+  }, [item.submenu]);
+
+  const onMouseEnter = () => {
+    if (item.submenu) {
+      gsap.to(submenuRef.current, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    }
+    gsap.to(linkRef.current, {
+      scale: 1.05,
+      duration: 0.2,
+      ease: 'power1.out'
+    });
+  };
+
+  const onMouseLeave = () => {
+    if (item.submenu) {
+      gsap.to(submenuRef.current, {
+        autoAlpha: 0,
+        y: 20,
+        duration: 0.2,
+        ease: 'power2.in'
+      });
+    }
+    gsap.to(linkRef.current, {
+      scale: 1,
+      duration: 0.2,
+      ease: 'power1.in'
+    });
+  };
+
+  return (
+    <div 
+      key={item.title} 
+      className="relative"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
-      {item.title}
+      <Link
+        ref={linkRef}
+        href={item.href}
+        onClick={() => handleNavigation(item.href)}
+        className={`px-5 py-2.5 rounded-full flex items-center text-sm font-medium transition-all duration-200 ${
+          activePage === item.href
+            ? 'bg-blue-100 text-blue-900 font-bold'
+            : 'text-blue-700 hover:text-blue-900 hover:bg-blue-100'
+        }`}
+      >
+        {item.title}
+        {item.submenu && <ChevronDown size={16} className="ml-2" />}
+      </Link>
       {item.submenu && (
-        <ChevronDown size={16} className="ml-2 group-hover:rotate-180 transition-transform duration-300" />
-      )}
-    </Link>
-    {item.submenu && (
-      <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-        <div className="py-2">
-          {item.submenu.map((subItem) => (
-            <Link
-              key={subItem}
-              href="#"
-              className="block px-5 py-3 text-sm text-blue-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150"
-            >
-              {subItem}
-            </Link>
-          ))}
+        <div 
+          ref={submenuRef}
+          className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-xl"
+        >
+          <div className="py-2">
+            {item.submenu.map((subItem) => (
+              <Link
+                key={subItem}
+                href="#"
+                className="block px-5 py-3 text-sm text-blue-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-150"
+              >
+                {subItem}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-    )}
-  </div>
-));
+      )}
+    </div>
+  );
+});
 
 // NavBar Component
 const NavBar = () => {
@@ -59,6 +111,8 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activePage, setActivePage] = useState(pathname);
+  const navRef = React.useRef(null);
+  const mobileMenuRef = React.useRef(null);
 
   const solutions = [
     'Meeting Room Solutions',
@@ -77,7 +131,15 @@ const NavBar = () => {
 
   useEffect(() => {
     const handleScroll = debounce(() => {
-      setScrolled(window.scrollY > 50);
+      const scrolled = window.scrollY > 50;
+      setScrolled(scrolled);
+      
+      gsap.to(navRef.current, {
+        backgroundColor: 'rgb(239, 246, 255)',
+        boxShadow: scrolled ? '0 4px 6px -1px rgb(0 0 0 / 0.1)' : 'none',
+        duration: 0.3,
+        ease: 'power2.out'
+      });
     }, 100);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -92,6 +154,34 @@ const NavBar = () => {
     setIsOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  const toggleMobileMenu = () => {
+    setIsOpen(!isOpen);
+    if (!isOpen) {
+      gsap.fromTo(mobileMenuRef.current,
+        { height: 0, opacity: 0 },
+        { 
+          height: 'auto', 
+          opacity: 1, 
+          duration: 0.3, 
+          ease: 'power2.out',
+          onStart: () => {
+            mobileMenuRef.current.style.display = 'block';
+          }
+        }
+      );
+    } else {
+      gsap.to(mobileMenuRef.current, {
+        height: 0,
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power2.in',
+        onComplete: () => {
+          mobileMenuRef.current.style.display = 'none';
+        }
+      });
+    }
+  };
 
   return (
     <>
@@ -108,11 +198,7 @@ const NavBar = () => {
         <meta property="og:title" content="Navigation | Your Company Name" />
         <meta property="og:description" content="Explore our comprehensive range of solutions and services" />
       </Head>
-      <nav
-        className={`fixed w-full z-40 transition-all duration-300 ${
-          scrolled ? 'shadow-lg backdrop-blur-lg bg-blue-50/95' : 'bg-blue-50'
-        }`}
-      >
+      <nav ref={navRef} className="fixed w-full z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
@@ -154,7 +240,7 @@ const NavBar = () => {
               </div>
 
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={toggleMobileMenu}
                 className="p-2.5 rounded-full text-blue-700 hover:text-blue-900 hover:bg-blue-100 transition-all duration-200 lg:hidden"
               >
                 {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -164,48 +250,50 @@ const NavBar = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <div className="lg:hidden bg-blue-50 border-t border-blue-100">
-            <div className="max-w-7xl mx-auto py-3 px-4 sm:px-6">
-              {MENU_ITEMS.map((item) => (
-                <div key={item.title} className="py-1">
-                  <Link
-                    href={item.href}
-                    onClick={() => handleNavigation(item.href)}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm ${
-                      activePage === item.href
-                        ? 'bg-blue-100 text-blue-900 font-bold'
-                        : 'text-blue-700 hover:bg-blue-100 hover:text-blue-900'
-                    }`}
-                  >
-                    <span>{item.title}</span>
-                    {item.submenu && (
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform duration-200 ${
-                          activePage === item.href ? 'rotate-180' : ''
-                        }`}
-                      />
-                    )}
-                  </Link>
+        <div 
+          ref={mobileMenuRef} 
+          className="lg:hidden bg-blue-50 border-t border-blue-100"
+          style={{ display: 'none' }}
+        >
+          <div className="max-w-7xl mx-auto py-3 px-4 sm:px-6">
+            {MENU_ITEMS.map((item) => (
+              <div key={item.title} className="py-1">
+                <Link
+                  href={item.href}
+                  onClick={() => handleNavigation(item.href)}
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm ${
+                    activePage === item.href
+                      ? 'bg-blue-100 text-blue-900 font-bold'
+                      : 'text-blue-700 hover:bg-blue-100 hover:text-blue-900'
+                  }`}
+                >
+                  <span>{item.title}</span>
                   {item.submenu && (
-                    <div className="ml-4 mt-1 border-l-2 border-blue-100">
-                      {item.submenu.map((subItem) => (
-                        <Link
-                          key={subItem}
-                          href="#"
-                          className="block px-4 py-3 text-sm text-blue-700 hover:bg-blue-100 hover:text-blue-900 rounded-xl transition-colors duration-150"
-                        >
-                          {subItem}
-                        </Link>
-                      ))}
-                    </div>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-200 ${
+                        activePage === item.href ? 'rotate-180' : ''
+                      }`}
+                    />
                   )}
-                </div>
-              ))}
-            </div>
+                </Link>
+                {item.submenu && (
+                  <div className="ml-4 mt-1 border-l-2 border-blue-100">
+                    {item.submenu.map((subItem) => (
+                      <Link
+                        key={subItem}
+                        href="#"
+                        className="block px-4 py-3 text-sm text-blue-700 hover:bg-blue-100 hover:text-blue-900 rounded-xl transition-colors duration-150"
+                      >
+                        {subItem}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </nav>
     </>
   );

@@ -8,7 +8,6 @@ import Features from '../app/Components/Features';
 import Blog from '../app/Components/Blog';
 import Logo from '../app/Components/Logo';
 import Newsletter from '../app/Components/Newsletter';
-import Unv from '../app/pages/Unv';
 
 
 const HomePage = () => {
@@ -20,9 +19,7 @@ const HomePage = () => {
       <Blog />
       <Logo />
       <Newsletter />
-      <Unv />
       <Footer />
-
     </div>
   );
 };

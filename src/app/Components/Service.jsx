@@ -1,14 +1,18 @@
+'use client';
+
 import React, { memo } from 'react';
 import { motion } from 'framer-motion';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 import styled from 'styled-components';
 import AnimatedCounter from '../Components/AnimatedCounter';
 import ProcessStep from '../Components/ProcessStep';
 import ServiceCard from '../Components/ServiceCard';
 import FAQItem from '../Components/FAQItem';
 import { FiAward, FiUsers, FiClock, FiCheck } from 'react-icons/fi';
-import whiteBgImage from '../assets/img/white.webp';
+import Image from 'next/image';
+import whiteBgImage from '../../../public/white.webp';
+
 
 const SERVICES = [
   {
@@ -92,7 +96,7 @@ const HeroSection = styled.div`
   position: relative;
   min-height: 100vh;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.3) 100%),
-    url(${whiteBgImage});
+    url(${whiteBgImage.src});
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -163,35 +167,33 @@ const CtaButton = styled.a`
   }
 `;
 
-// Add this configuration before the Service component
-const helmetContext = {};
-
 const Service = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <>
-      <HelmetProvider context={helmetContext}>
-        <Helmet>
-          <title>Professional Digital Services - Web, Mobile & Cloud Solutions</title>
-          <meta name="description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
-          <meta name="keywords" content="web development, mobile apps, cloud solutions, digital marketing, SEO, React, Node.js" />
-          <link rel="canonical" href="https://yourwebsite.com/services" />
-          
-          {/* Open Graph tags */}
-          <meta property="og:title" content="Professional Digital Services - Web, Mobile & Cloud Solutions" />
-          <meta property="og:description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://yourwebsite.com/services" />
-          
-          {/* Twitter Card tags */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Professional Digital Services - Web, Mobile & Cloud Solutions" />
-          <meta name="twitter:description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
+      <Head>
+        <title>Professional Digital Services - Web, Mobile & Cloud Solutions</title>
+        <meta name="description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
+        <meta name="keywords" content="web development, mobile apps, cloud solutions, digital marketing, SEO, React, Node.js" />
+        <link rel="canonical" href="https://yourwebsite.com/services" />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content="Professional Digital Services - Web, Mobile & Cloud Solutions" />
+        <meta property="og:description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourwebsite.com/services" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Professional Digital Services - Web, Mobile & Cloud Solutions" />
+        <meta name="twitter:description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
 
-          {/* Schema.org JSON-LD */}
-          <script type="application/ld+json">
-            {JSON.stringify({
+        {/* Schema.org JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
               "@context": "https://schema.org",
               "@graph": [
                 {
@@ -275,14 +277,14 @@ const Service = () => {
                   ]
                 }
               ]
-            })}
-          </script>
-        </Helmet>
-      </HelmetProvider>
+            })
+          }}
+        />
+      </Head>
 
       <div className="relative min-h-[120vh] bg-cover bg-center bg-fixed overflow-hidden"
            style={{
-             backgroundImage: `linear-gradient(165deg, rgba(37, 99, 235, 0.95) 0%, rgba(37, 99, 235, 0.4) 25%, rgba(0, 0, 0, 0) 50%), url(${whiteBgImage})`
+             backgroundImage: `linear-gradient(165deg, rgba(37, 99, 235, 0.95) 0%, rgba(37, 99, 235, 0.4) 25%, rgba(0, 0, 0, 0) 50%), url(${whiteBgImage.src})`
            }}>
         <div className="container mx-auto px-6 min-h-screen flex items-center relative z-10 pt-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -320,7 +322,7 @@ const Service = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate('/contact')}
+                    onClick={() => router.push('/contact')}
                     className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-semibold shadow-lg shadow-blue-500/25 flex items-center justify-center group cursor-pointer"
                   >
                     Get Started
@@ -536,8 +538,8 @@ const Service = () => {
 const MemoizedService = memo(Service);
 
 const ServiceWithMeta = memo(() => (
-  <HelmetProvider context={helmetContext}>
-    <Helmet>
+  <>
+    <Head>
       <title>Professional Digital Services - Web, Mobile & Cloud Solutions</title>
       <meta name="description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
       <meta name="keywords" content="web development, mobile apps, cloud solutions, digital marketing, SEO, React, Node.js" />
@@ -555,96 +557,99 @@ const ServiceWithMeta = memo(() => (
       <meta name="twitter:description" content="Transform your business with our comprehensive digital solutions. Expert web development, mobile apps, cloud solutions, and digital marketing services." />
 
       {/* Schema.org JSON-LD */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "WebPage",
-              "@id": "https://yourwebsite.com/services/#webpage",
-              "url": "https://yourwebsite.com/services/",
-              "name": "Professional Digital Services - Web, Mobile & Cloud Solutions",
-              "description": "Transform your business with our comprehensive digital solutions.",
-              "isPartOf": { "@id": "https://yourwebsite.com/#website" }
-            },
-            {
-              "@type": "Organization",
-              "@id": "https://yourwebsite.com/#organization",
-              "name": "Your Company Name",
-              "url": "https://yourwebsite.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://yourwebsite.com/logo.png"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebPage",
+                "@id": "https://yourwebsite.com/services/#webpage",
+                "url": "https://yourwebsite.com/services/",
+                "name": "Professional Digital Services - Web, Mobile & Cloud Solutions",
+                "description": "Transform your business with our comprehensive digital solutions.",
+                "isPartOf": { "@id": "https://yourwebsite.com/#website" }
+              },
+              {
+                "@type": "Organization",
+                "@id": "https://yourwebsite.com/#organization",
+                "name": "Your Company Name",
+                "url": "https://yourwebsite.com",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://yourwebsite.com/logo.png"
+                }
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                      "@id": "https://yourwebsite.com/",
+                      "name": "Home"
+                    }
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                      "@id": "https://yourwebsite.com/services/",
+                      "name": "Services"
+                    }
+                  }
+                ]
+              },
+              {
+                "@type": "ItemList",
+                "itemListElement": [
+                  {
+                    "@type": "Service",
+                    "name": "Web Development",
+                    "description": "Creating modern, responsive websites and web applications",
+                    "offers": {
+                      "@type": "Offer",
+                      "availability": "https://schema.org/InStock"
+                    }
+                  },
+                  {
+                    "@type": "Service",
+                    "name": "Mobile Apps",
+                    "description": "Native and cross-platform mobile solutions",
+                    "offers": {
+                      "@type": "Offer",
+                      "availability": "https://schema.org/InStock"
+                    }
+                  },
+                  {
+                    "@type": "Service",
+                    "name": "Cloud Solutions",
+                    "description": "Scalable and secure cloud infrastructure",
+                    "offers": {
+                      "@type": "Offer",
+                      "availability": "https://schema.org/InStock"
+                    }
+                  },
+                  {
+                    "@type": "Service",
+                    "name": "Digital Marketing",
+                    "description": "Comprehensive digital marketing strategies",
+                    "offers": {
+                      "@type": "Offer",
+                      "availability": "https://schema.org/InStock"
+                    }
+                  }
+                ]
               }
-            },
-            {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "item": {
-                    "@id": "https://yourwebsite.com/",
-                    "name": "Home"
-                  }
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "item": {
-                    "@id": "https://yourwebsite.com/services/",
-                    "name": "Services"
-                  }
-                }
-              ]
-            },
-            {
-              "@type": "ItemList",
-              "itemListElement": [
-                {
-                  "@type": "Service",
-                  "name": "Web Development",
-                  "description": "Creating modern, responsive websites and web applications",
-                  "offers": {
-                    "@type": "Offer",
-                    "availability": "https://schema.org/InStock"
-                  }
-                },
-                {
-                  "@type": "Service",
-                  "name": "Mobile Apps",
-                  "description": "Native and cross-platform mobile solutions",
-                  "offers": {
-                    "@type": "Offer",
-                    "availability": "https://schema.org/InStock"
-                  }
-                },
-                {
-                  "@type": "Service",
-                  "name": "Cloud Solutions",
-                  "description": "Scalable and secure cloud infrastructure",
-                  "offers": {
-                    "@type": "Offer",
-                    "availability": "https://schema.org/InStock"
-                  }
-                },
-                {
-                  "@type": "Service",
-                  "name": "Digital Marketing",
-                  "description": "Comprehensive digital marketing strategies",
-                  "offers": {
-                    "@type": "Offer",
-                    "availability": "https://schema.org/InStock"
-                  }
-                }
-              ]
-            }
-          ]
-        })}
-      </script>
-    </Helmet>
+            ]
+          })
+        }}
+      />
+    </Head>
     <MemoizedService />
-  </HelmetProvider>
+  </>
 ));
 
-export default memo(ServiceWithMeta);
+export default ServiceWithMeta;

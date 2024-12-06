@@ -1,22 +1,16 @@
 'use client'
-import { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
 import Image from 'next/image';
 import AIInSurveillance from '../../../public/blog/AI in Surveillance_1.webp';
 import AIoT from '../../../public/blog/AIoT_1.webp';
 import ITEcosystem from '../../../public/blog/IT Ecosystem Infrastructure_1.webp';
 import { useRouter } from 'next/navigation';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const slideUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.main`
   width: 100%;
@@ -39,7 +33,6 @@ const Container = styled.main`
 const Header = styled.header`
   text-align: center;
   margin-bottom: 50px;
-  animation: ${slideUp} 0.8s ease-out;
 
   h1 {
     font-size: 2.8rem;
@@ -83,7 +76,6 @@ const Card = styled.article`
   overflow: hidden;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.03);
   transition: all 0.3s ease;
-  animation: ${slideUp} 0.8s ease-out;
   border: 1px solid #f8f9fa;
 
   &:hover {
@@ -179,6 +171,48 @@ const Blog = () => {
   ]);
 
   const router = useRouter();
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    // Header animation
+    gsap.fromTo(headerRef.current,
+      {
+        opacity: 0,
+        y: 50
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out"
+      }
+    );
+
+    // Cards stagger animation
+    cardsRef.current.forEach((card, index) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          y: 50,
+          scale: 0.95
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: index * 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=100",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+  }, []);
 
   const handleReadMore = (post) => {
     router.push(`/blog/${post.id}`);
@@ -186,14 +220,31 @@ const Blog = () => {
 
   return (
     <Container>
-      <Header>
+      <Header ref={headerRef}>
         <h1>Latest Articles</h1>
         <p>Insights from our expert team</p>
       </Header>
 
       <Grid>
         {posts.map((post, index) => (
-          <Card key={post.id} $index={index}>
+          <Card 
+            key={post.id} 
+            ref={el => cardsRef.current[index] = el}
+            onMouseEnter={(e) => {
+              gsap.to(e.currentTarget, {
+                scale: 1.03,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            }}
+            onMouseLeave={(e) => {
+              gsap.to(e.currentTarget, {
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            }}
+          >
             <ImageContainer>
               <StyledImage
                 src={post.image}
