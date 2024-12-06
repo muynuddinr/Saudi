@@ -53,6 +53,12 @@ const HeroSection = styled.section`
   align-items: center;
   padding: 0;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+    min-height: auto;
+    padding: 2rem 0;
+  }
 `;
 
 const Hero = () => {
@@ -351,11 +357,11 @@ const Hero = () => {
       />
       
       <HeroSection ref={heroRef} aria-label="Hero Section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-32 pb-16 relative">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-32 pb-16 relative">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Left Content */}
-            <article className="flex-1 text-center lg:text-left space-y-8 sm:space-y-8 pt-8 sm:pt-0">
-              <h1 ref={headingRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6">
+            <article className="flex-1 text-center lg:text-left space-y-6 sm:space-y-8 pt-4 sm:pt-0">
+              <h1 ref={headingRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
                 <span className="bg-gradient-to-r from-sky-800 via-blue-600 to-sky-800 bg-[length:200%_auto] bg-clip-text text-transparent">
                   Transform Your
                 </span>
@@ -365,7 +371,7 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <div ref={descriptionRef} className="space-y-4">
+              <div ref={descriptionRef} className="space-y-4 px-4 sm:px-0">
                 <motion.p
                   variants={fadeUp}
                   className="text-base sm:text-lg md:text-xl text-sky-900 max-w-xl mx-auto lg:mx-0"
@@ -390,11 +396,11 @@ const Hero = () => {
             </article>
 
             {/* Right Image Section */}
-            <div ref={imageRef} className="flex-1 lg:block mt-12 lg:mt-0">
+            <div ref={imageRef} className="flex-1 lg:block mt-8 lg:mt-0 px-4 sm:px-0">
               <Image
                 src={heroImage}
                 alt="Transform Your Business"
-                className="w-full h-[300px] lg:h-auto object-cover rounded-lg shadow-lg"
+                className="w-full h-[250px] sm:h-[300px] lg:h-auto object-cover rounded-lg shadow-lg"
                 priority
                 width={800}
                 height={600}
@@ -403,7 +409,7 @@ const Hero = () => {
           </div>
           
           {/* Stats Section */}
-          <div ref={statsRef} className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          <div ref={statsRef} className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-0">
             {stats.map((stat, index) => (
               <StatItem key={index} stat={stat} index={index} />
             ))}

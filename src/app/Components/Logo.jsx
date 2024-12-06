@@ -104,7 +104,7 @@ const Logo = () => {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Your Company Name",
-            "url": "https://www.yourcompany.com",
+            "url": "https://www.Digitallinktech.com",
             "partner": logos.map(logo => ({
               "@type": "Organization",
               "name": logo.alt,
